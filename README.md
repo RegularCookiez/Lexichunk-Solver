@@ -7,4 +7,4 @@ Each column of words has a specific group of letters taken away anywhere in the 
 ![My Image](lexichunk_explanation.jpg)
 
 To use the Python solver, simply enter the number of columns, then enter the words removed of their chunks separated by spaces.
-The program will use the WB dictionary to solve for them, and output potential solutions below, separating each chunk with a slash.
+The program will use a custom dictionary to solve for them, and output potential solutions below, separating each chunk with a slash.
