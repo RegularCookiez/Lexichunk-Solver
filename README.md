@@ -58,7 +58,7 @@ anc/hor
 Search completed in 15.23s.
 ```
 
-As you can see, it found the solution anchor having found original words with those chunks.
+As you can see, it found the solution `anchor` having found original words with the chunks `anc` and `hor`.
 
 While not displayed, you can determine them retroactively:
 
