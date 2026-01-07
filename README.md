@@ -1,14 +1,16 @@
-# Lexichunk Solver Guide
+# Lexichunk Solver
 
 Lexichunk is a word game where you have a deduce a final word by piecing together word chunks that are taken out of lists of words.
 
 Each column of words has a specific group of letters taken away anywhere in the word. Those group of letters will be used as part the chunk word. Find the chunk word based on the removed groups of letters, from left to right.
 
+## Lexichunk Example
+
 ![My Image](lexichunk_example.jpg)
 
 This Python solver uses a combination of regex searches and string slicing to brute force possible chunks, and find those common amongst column sets to calculate valid word combinations.
 
----
+## User Guide
 
 Below is an example of how to use the Lexichunk solver. (You must have lexichunk.py and dictionary.txt installed in the same folder)
 
