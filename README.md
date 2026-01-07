@@ -6,8 +6,7 @@ Each column of words has a specific group of letters taken away anywhere in the 
 
 ![My Image](lexichunk_example.jpg)
 
-To use the Python solver, simply enter the number of columns, then enter the words removed of their chunks separated by spaces.
-The program will use a custom dictionary to solve for them, and output potential solutions below, separating each chunk with a slash.
+This Python solver uses a combination of regex searches and string slicing to brute force possible chunks, and find those common amongst column sets to calculate valid word combinations.
 
 ---
 
@@ -39,7 +38,7 @@ sten ase tax tough
 
 After inputting the columns, it will try to solve for the columns and display the current progress.
 
-Once it's done, it will display all found solutions:
+Once it's done, it will display all found solutions, separating chunks with a slash:
 
 ```
 Lexichunk Solved!
