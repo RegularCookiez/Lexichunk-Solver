@@ -62,6 +62,8 @@ Search completed in 15.23s.
 
 As you can see, it found the solution `anchor` having found original words with the chunks `anc` and `hor`.
 
+It also calculates the search time as a benchmark for future optimisations.
+
 While not displayed, you can determine them retroactively:
 
 ```
