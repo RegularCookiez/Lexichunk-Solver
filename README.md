@@ -14,6 +14,8 @@ This Python solver uses regex wildcard insertions and string slicing to brute fo
 
 ## User Guide
 
+![My GIF](solve.gif)
+
 Below is an example of how to use the Lexichunk solver. (You must have lexichunk.py and dictionary.txt installed in the same folder)
 
 Let us say we are given the two columns `che ders bale pake` and `sten ase tax tough`.
