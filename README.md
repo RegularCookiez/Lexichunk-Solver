@@ -59,7 +59,7 @@ Column 2: hor
 All Solutions (1)
 anc/hor
 
-Search completed in 15.23s.
+Search completed in 9.79s.
 ```
 
 As you can see, it found the solution `anchor` having found original words with the chunks `anc` and `hor`.
@@ -72,5 +72,3 @@ While not displayed, you can determine them retroactively:
 ch(anc)e d(anc)ers bal(anc)e p(anc)ake
 s(hor)ten as(hor)e t(hor)ax t(hor)ough
 ```
-
-
