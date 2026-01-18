@@ -15,7 +15,6 @@ column_numbers = int(input("How many columns are there?\n"))
 os.system('cls' if os.name == 'nt' else 'clear')
 
 all_columns = []
-
 for i in range(column_numbers):
  shortened_words = input(f"What are the shortened words in Column {i+1}?\n").split()
  all_columns.append(shortened_words)
@@ -29,51 +28,41 @@ process_start = perf_counter()
 potential_removed_groups = []
 all_possible_answers = set()
 
-for x in all_columns:
+for index, x in enumerate(all_columns, start=1):
  
  all_possible_answers = set()
 
- for y in x:
+ for idx, y in enumerate(x):
 
   #Clears the terminal and informs of you the solving progress.
 
   os.system('cls' if os.name == 'nt' else 'clear')
-  print(f"Solving column {str(all_columns.index(x)+1)}...")
-  print(f"Matching words to {y}...")
+  print(f"Solving column {str(index)}...\nMatching words to {y}...")
 
 
-  #Creates a list of all possible regexes that can check for full words with missing chunks.
-  #Also creates a separate list of those compilde patterns.
-  #It checks for a word that has any amount of filler letters in any index of the word.
+  #Iterates through the word to find all possible splits where a chunk could be.
+  #Then, goes through the entire dictionary finds a chunk that fits in that split.
+  #It adds any valid chunk into possible_answers.
 
   possible_answers = set()
-  regex_needed = []
-  compiled_patterns = []
   for i in range(len(y)+1):
-   r = f"^{y[:i]}.*{y[i:]}$"
-   regex_needed.append(r)
-   compiled_patterns.append(re.compile(r))
+   chunk_start = y[:i]
+   chunk_end = y[i:]
+   end_len = len(y)-i
 
-
-  #Searches the dictionary and checks for any words that match the given words in the column.
-  #Via string slicing, the chunk word is then deduced.
-
-  for z in dictionary:
-   for pattern, r in zip(compiled_patterns, regex_needed):
-    if y != z and pattern.search(z):
-     chunk_start = r.index(".*")-1
-     chunk_end = -len(r)+r.index(".*")+3
-     if chunk_end != 0:
-      removed_chunk = z[chunk_start:chunk_end]
+   for z in dictionary:
+    if y != z and z.startswith(chunk_start) and z.endswith(chunk_end):
+     if end_len != 0:
+      removed_chunk = z[i:len(z)-end_len]
      else:
-      removed_chunk = z[chunk_start:]
+      removed_chunk = z[i:]
      possible_answers.add(removed_chunk)
 
 
   #If this is the first word in the column, it sets the set all_possible_answers to the set of possible chunks.
   #If not, all_possible_answers is taken as the intersection between itself and possible_answers.
 
-  if x.index(y) == 0:
+  if idx == 0:
    all_possible_answers = possible_answers
   else:
    all_possible_answers &= possible_answers
@@ -92,14 +81,12 @@ print("Checking all combinations of chunks...")
 
 #It constructs a regex query to check for chunk combinations, and compiles it.
 
-combo_regex_query = "^" + "".join(f"({'|'.join(x)})" for x in potential_removed_groups) + "$"
-pattern = re.compile(combo_regex_query)
-
-valid_solutions = []
+pattern = re.compile("^" + "".join(f"({'|'.join(x)})" for x in potential_removed_groups) + "$")
 
 
 #It then finds words matching that pattern, and uses groups() to demarcate chunks with slashes, adding it to valid_solutions.
 
+valid_solutions = []
 for w in dictionary:
  match = pattern.match(w)
  if match:
@@ -109,6 +96,7 @@ for w in dictionary:
 
 
 #perf_counter is used here to calculate the time taken for the search.
+
 process_end = perf_counter()
 
 
@@ -117,14 +105,13 @@ process_end = perf_counter()
 os.system('cls' if os.name == 'nt' else 'clear')
 
 print("Lexichunk Solved!\n")
-for x in all_columns:
- print(f'Column {str(all_columns.index(x)+1)}: {" ".join(x)}')
+for index, x in enumerate(all_columns, start=1):
+ print(f'Column {index}: {" ".join(x)}')
 
 print('\nAll Possible Chunks:')
-for x in potential_removed_groups:
+for index, x in enumerate(potential_removed_groups, start=1):
  unslashed_list = [y.replace("/","") for y in x]
- print(f'Column {potential_removed_groups.index(x)+1}: {", ".join(unslashed_list)}')
+ print(f'Column {index}: {", ".join(unslashed_list)}')
 
 print(f'\nAll Solutions ({len(valid_solutions)})\n{", ".join(valid_solutions)}')
-
 print(f"\nSearch completed in {round(process_end-process_start,2)}s.")
